@@ -3,6 +3,16 @@ const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v
 const SPREADSHEET_ID = '1tgXa40G_q2-TdbCenaLT421SJONAmub5WrE5PEBChqU';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
+// _________________________________________________________
+//columns to input value
+var job_title;	
+var company;
+var	location;	
+var date_posted;	
+var tag;
+var status;
+var target_url;
+
 function onGAPILoad() {
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
@@ -23,6 +33,11 @@ function onGAPILoad() {
         end_row = response.result.values.length
         localStorage.setItem("number_rows", end_row)
         console.log(`starting write from ${end_row}`)
+        chrome.tabs.getSelected(null, function(tab) {
+           httpGetAsync(tab.url, function() {
+             console.log('Successfully get job info')
+           })
+      });
         write_sheet()
       });
     })
@@ -31,48 +46,27 @@ function onGAPILoad() {
   });
 }
 
-// _________________________________________________________
-//columns to input value
-var job_title;	
-var company;
-var	location;	
-var date_posted;	
-var tag;
-var status;
-var target_url;
-
 //functions
 function parser (title) {
+    //Get job
+    spl = title.split(" | ")
+    job_title = spl[0]
     //Get company
-    let reg = "[A-Za-z0-9]+ hiring "
-    let matcher = title.match(reg)[0]
-    company = matcher.split(" ")[0]
-    //Get Job title
-    reg = "(?<=hiring )(.+)(?= in )"
-    job_title = title.match(reg)[0]
+    company = spl[1]
     //Get location
-    reg = "(?<= in )[^\|]+(?= | LinkedIn )"
-    location = title.match(reg)[0]
-    console.log(location, company, job_title)
-}
-//https://www.linkedin.com/jobs/view/2626542900/
-function httpGetAsync(theUrl)
-{
-    let xmlHttp = new XMLHttpRequest();
-    xmlHttp.onload = function() {
-        parser(this.responseXML.title)
-      }
-    xmlHttp.open("GET", theUrl);
-    xmlHttp.responseType = "document";
-    xmlHttp.send();
+    //reg = "(?<= in )[^\|]+(?= | LinkedIn )"
+    //location = title.match(reg)[0]
+    console.log(company)
+    console.log(job_title)
 }
 
-document.addEventListener("click", function() {
-  chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-    var tab = tabs[0].url;
- });
-  write_sheet()
-})
+
+chrome.browserAction.onClicked.addListener(function(tab) {
+  chrome.tabs.getSelected(null, function(tab) {
+    parser(tab.title)
+    write_sheet()
+  });
+});
 
 function write_sheet () {
     var values = [

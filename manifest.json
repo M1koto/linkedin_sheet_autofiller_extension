@@ -8,10 +8,11 @@
     "scopes":["https://www.googleapis.com/auth/spreadsheets"]
   },
   "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",
-  "permissions": ["identity"],
+  "permissions": ["identity", "activeTab", "storage", "tabs", "<all_urls>"],
   "background": {
-    "page": "background.html",
+    "scripts": ["background.js"],
     "persistence": false
   },
+  "browser_action": {},
   "manifest_version": 2
 }
