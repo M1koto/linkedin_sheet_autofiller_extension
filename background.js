@@ -73,7 +73,7 @@ function parser (title) {
 
 function write_sheet () {
   //format cells to update
-    ranges = "B" + String(end_row) + ":C"
+    ranges = "B" + String(end_row+1) + ":C"
     var values = [
         [
           job_title, company
