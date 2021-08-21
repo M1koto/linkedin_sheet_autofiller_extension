@@ -4,6 +4,7 @@ const SPREADSHEET_ID = 'SPREADSHEET_ID';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
 // _________________________________________________________
+var end_row;
 //columns to input value
 var job_title;	
 var company;
@@ -72,8 +73,9 @@ function parser (title) {
 }
 
 function write_sheet () {
+  end_row = end_row + 1
   //format cells to update
-    ranges = "B" + String(end_row+1) + ":C"
+    ranges = "B" + String(end_row) + ":C"
     var values = [
         [
           job_title, company
