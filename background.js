@@ -4,6 +4,7 @@ const SPREADSHEET_ID = '1tgXa40G_q2-TdbCenaLT421SJONAmub5WrE5PEBChqU';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
 // _________________________________________________________
+var end_row;
 //columns to input value
 var job_title;	
 var company;
@@ -76,7 +77,8 @@ function parser (title) {
 
 function write_sheet () {
   //format cells to update
-    ranges = "B" + String(end_row+1) + ":E"
+    end_row += 1
+    ranges = "B" + String(end_row) + ":E"
     var values = [
         [
           job_title, company, "Remote", "Applying"
