@@ -67,16 +67,19 @@ function parser (title) {
     //Get location
     //reg = "(?<= in )[^\|]+(?= | LinkedIn )"
     //location = title.match(reg)[0]
+    if (job_title.toLowerCase().includes('software')) {
+      job_title = "SWE Intern"
+    }
     console.log(company)
     console.log(job_title)
 }
 
 function write_sheet () {
   //format cells to update
-    ranges = "B" + String(end_row) + ":C"
+    ranges = "B" + String(end_row+1) + ":E"
     var values = [
         [
-          job_title, company
+          job_title, company, "Remote", "Applying"
         ],
       ];
       var body = {
