@@ -2,9 +2,9 @@
   "name": "LinkedSheet",
   "version": "1.0",
   "description": "An extension for auto filling google sheet for linkedin jobs",
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAnVRSpTN2JMMR4Aw1+7Qu/QDAQ8TcqOm12W55zjjg8gc8GXVG6AtQi1mXekxjvNjOuKKfP9XzoudWczK5lrRhN1YsCmDT7aLF3sZQnZsHYa+q87jKfRFyVUr8aBo8YQr0CaU6KlMuebcKsoYEJ11bNvuMRM6VtkRJUI3qk7dsO/whV7q4kBv/99CnCigRuxb3b0K/aIEJpXZCud34ZRcx5RsqglNr4h7t4iKb2HcHhaFKu3yMGE9XlA1UvwVUvnV8ur2kF6/oXXjyO8gWCbizMxZN9RHLI3UJyBQnnH3GgMGJkrojfZhbkl0n6VolXiTZuhfnt1vkuwGZjGIXXbViEQIDAQAB",
+  "key": "SERVICE_KEY",
   "oauth2": {
-    "client_id": "262099469459-5ue0fvprdj9v14ql8gt1pk7leatob1dq.apps.googleusercontent.com",
+    "client_id": "CLIENT_ID",
     "scopes":["https://www.googleapis.com/auth/spreadsheets"]
   },
   "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",

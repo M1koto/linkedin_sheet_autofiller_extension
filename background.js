@@ -1,6 +1,6 @@
-const API_KEY = 'AIzaSyDjYbgdK9aDlm_flYiNM9Uebt32F44VdR8';
+const API_KEY = 'API_KEY';
 const DISCOVERY_DOCS = ["https://sheets.googleapis.com/$discovery/rest?version=v4"];
-const SPREADSHEET_ID = '1tgXa40G_q2-TdbCenaLT421SJONAmub5WrE5PEBChqU';
+const SPREADSHEET_ID = 'SPREADSHEET_ID';
 const SPREADSHEET_TAB_NAME = 'Sheet1';
 
 // _________________________________________________________
