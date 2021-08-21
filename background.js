@@ -13,6 +13,9 @@ var tag;
 var status;
 var target_url;
 
+var fileref=document.createElement('script');
+fileref.setAttribute("src", "https://apis.google.com/js/client.js?onload=onGAPILoad");
+
 function onGAPILoad() {
   gapi.client.init({
     // Don't pass client nor scope as these will init auth2, which we don't want
@@ -34,11 +37,8 @@ function onGAPILoad() {
         localStorage.setItem("number_rows", end_row)
         console.log(`starting write from ${end_row}`)
         chrome.tabs.getSelected(null, function(tab) {
-           httpGetAsync(tab.url, function() {
-             console.log('Successfully get job info')
-           })
+          console.log('Successfully registered')
       });
-        write_sheet()
       });
     })
   }, function(error) {
@@ -71,7 +71,7 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 function write_sheet () {
     var values = [
         [
-          "test"
+          job_title
         ],
       ];
       var body = {

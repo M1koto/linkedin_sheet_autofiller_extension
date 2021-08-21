@@ -10,9 +10,17 @@
   "content_security_policy": "script-src 'self' https://apis.google.com/; object-src 'self'",
   "permissions": ["identity", "activeTab", "storage", "tabs", "<all_urls>"],
   "background": {
-    "scripts": ["background.js"],
+    "page": "background.html",
     "persistence": false
   },
+  "content_scripts": [
+    {
+      "matches": ["https://www.linkedin.com/*"],
+      "js": [
+        "background.js"
+      ]
+    }
+  ],
   "browser_action": {},
   "manifest_version": 2
 }
