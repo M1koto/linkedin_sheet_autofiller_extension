@@ -13,12 +13,23 @@ var tag;
 var status;
 var target_url;
 
+//reference
 var fileref=document.createElement('script');
 fileref.setAttribute("src", "https://apis.google.com/js/client.js?onload=onGAPILoad");
 
+//on click of icon fetch job info and write to gogole api
+chrome.browserAction.onClicked.addListener(function(tab) {
+  chrome.tabs.getSelected(null, function(tab) {
+    parser(tab.title)
+    write_sheet()
+  });
+});
+
+// functions ________________________________________
+
+//initiate login to use google API
 function onGAPILoad() {
   gapi.client.init({
-    // Don't pass client nor scope as these will init auth2, which we don't want
     apiKey: API_KEY,
     discoveryDocs: DISCOVERY_DOCS,
   }).then(function () {
@@ -33,8 +44,8 @@ function onGAPILoad() {
         spreadsheetId: SPREADSHEET_ID,
         range: SPREADSHEET_TAB_NAME,
       }).then(function(response) {
+        //store where we should start writing here
         end_row = response.result.values.length
-        localStorage.setItem("number_rows", end_row)
         console.log(`starting write from ${end_row}`)
         chrome.tabs.getSelected(null, function(tab) {
           console.log('Successfully registered')
@@ -46,7 +57,7 @@ function onGAPILoad() {
   });
 }
 
-//functions
+//parse title
 function parser (title) {
     //Get job
     spl = title.split(" | ")
@@ -60,18 +71,12 @@ function parser (title) {
     console.log(job_title)
 }
 
-
-chrome.browserAction.onClicked.addListener(function(tab) {
-  chrome.tabs.getSelected(null, function(tab) {
-    parser(tab.title)
-    write_sheet()
-  });
-});
-
 function write_sheet () {
+  //format cells to update
+    ranges = "B" + String(end_row) + ":C"
     var values = [
         [
-          job_title
+          job_title, company
         ],
       ];
       var body = {
@@ -79,7 +84,7 @@ function write_sheet () {
       };
       gapi.client.sheets.spreadsheets.values.update({
          spreadsheetId: SPREADSHEET_ID,
-         range: "A1",
+         range: ranges,
          valueInputOption: "RAW",
          resource: body
       }).then((response) => {
